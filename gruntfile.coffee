@@ -228,7 +228,6 @@ module.exports = (grunt) ->
     ]
 
     grunt.registerTask 'build', [
-        'test'
         'coffee'
         'clean:dist'
         'useminPrepare'

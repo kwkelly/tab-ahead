@@ -56,13 +56,15 @@ window.tabahead = ($, Fuse, chrome, setTimeout, storage) ->
         item = result.item
         highlighted = {
             title: item.title,
-            url: item.url
+            url: item.url,
+            favIconUrl: item.favIconUrl
         }
         result.matches.forEach((match) ->
             highlighted[match.key] = highlight_matches(match.indices, item[match.key])
         )
 
-        "<div class=\"title\">#{highlighted.title}</div><small class=\"muted url\">#{highlighted.url}</small>"
+        "<div class=\"favicon\"><img src=\"#{highlighted.favIconUrl}\"/></div><div class=\"title\">#{highlighted.title}
+        </div><small class=\"muted url\">#{highlighted.url}</small>"
 
     # Quick and dirty monkey patch
     # Implemented `$.fn.data` instead of
