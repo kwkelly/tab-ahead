@@ -5,6 +5,11 @@ window.tabahead = ($, Fuse, chrome, setTimeout, storage) ->
         CURRENT: 'current'
 
     PREF_QUERY = 'pref/query'
+    PREF_FAV = 'pref/fav'
+
+    FAV =
+        FAV: 'fav'
+        NOFAV: 'NOfav'
     # Constants shared with `options.coffee` <--
 
     string_separator = ':::::'
@@ -62,9 +67,13 @@ window.tabahead = ($, Fuse, chrome, setTimeout, storage) ->
         result.matches.forEach((match) ->
             highlighted[match.key] = highlight_matches(match.indices, item[match.key])
         )
-
-        "<div class=\"favicon\"><img src=\"#{highlighted.favIconUrl}\"/></div><div class=\"title\">#{highlighted.title}
-        </div><small class=\"muted url\">#{highlighted.url}</small>"
+        if storage[PREF_FAV] is FAV.FAV
+            "<div class=\"fav\"> <div class=\"favicon\"><img src=\"#{highlighted.favIconUrl}\"/></div><div class=\"title\">#{highlighted.title}
+            </div><small class=\"muted url\">#{highlighted.url}</small></div>"
+        else
+            "<div class=\"nofav\"><div class=\"title\">#{highlighted.title}
+            </div><small class=\"muted url\">#{highlighted.url}</small></div>"
+            
 
     # Quick and dirty monkey patch
     # Implemented `$.fn.data` instead of

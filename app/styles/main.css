@@ -9,19 +9,32 @@ body {
     height: 35px;
 }
 
-.title {
+.fav .title {
     width: 430px;
     text-overflow: ellipsis;
     overflow: hidden;
 		margin-left: 28px;
 }
 
-.url {
+.fav .url {
     width: 430px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: block;
 		margin-left: 28px
+}
+
+.nofav .title {
+    width: 458px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.nofav .url {
+    width: 458px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
 }
 
 .favicon {
