@@ -68,12 +68,13 @@ window.tabahead = ($, Fuse, chrome, setTimeout, storage) ->
             highlighted[match.key] = highlight_matches(match.indices, item[match.key])
         )
         if storage[PREF_FAV] is FAV.FAV
-            "<div class=\"fav\"> <div class=\"favicon\"><img src=\"#{highlighted.favIconUrl}\"/></div><div class=\"title\">#{highlighted.title}
+            "<div class=\"fav\"><div class=\"favicon\"><img src=\"#{highlighted.favIconUrl}\"/></div>\
+            <div class=\"title\">#{highlighted.title}\
             </div><small class=\"muted url\">#{highlighted.url}</small></div>"
         else
-            "<div class=\"nofav\"><div class=\"title\">#{highlighted.title}
+            "<div class=\"nofav\"><div class=\"title\">#{highlighted.title}\
             </div><small class=\"muted url\">#{highlighted.url}</small></div>"
-            
+
 
     # Quick and dirty monkey patch
     # Implemented `$.fn.data` instead of

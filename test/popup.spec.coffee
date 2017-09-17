@@ -4,7 +4,13 @@ describe 'Tab Ahead. Popup', ->
         ALL: 'all'
         CURRENT: 'current'
 
+    FAV =
+        FAV: 'fav'
+        NOFAV: 'nofav'
+
     PREF_QUERY = 'pref/query'
+    PREF_FAV = 'pref/fav'
+
     # Constants shared with `options.coffee` <--
 
     # Mocking birds
@@ -27,6 +33,7 @@ describe 'Tab Ahead. Popup', ->
     beforeEach ->
         setFixtures window.__html__['test/fixtures/form.html']
         window.localStorage[PREF_QUERY] = undefined
+        window.localStorage[PREF_FAV] = undefined
         window.tabahead window.jQuery,
             window.Fuse,
             window.chrome,
@@ -53,6 +60,9 @@ describe 'Tab Ahead. Popup', ->
         queryTabsSpy = {}
 
         beforeEach ->
+            window.localStorage[PREF_FAV] = FAV.FAV
+
+        beforeEach ->
             queryTabsSpy = (spyOn window.chrome.tabs, 'query').and.callThrough()
 
             $('#typeahead')
@@ -65,7 +75,7 @@ describe 'Tab Ahead. Popup', ->
         it 'should query the current window by default', ->
             (expect queryTabsSpy.calls.all()[0].args[0].currentWindow).toBe true
 
-        it 'should show suggestions', (done) ->
+        it 'should show suggestions with favicons', (done) ->
             interval = setInterval ->
                 if ($ 'ul').length > 0
                     clearInterval interval
@@ -78,6 +88,9 @@ describe 'Tab Ahead. Popup', ->
 
     describe 'even with query input longer than 32 characters', ->
         queryTabsSpy = {}
+
+        beforeEach ->
+            window.localStorage[PREF_FAV] = FAV.FAV
 
         beforeEach ->
             queryTabsSpy = (spyOn window.chrome.tabs, 'query').and.callThrough()
@@ -95,6 +108,61 @@ describe 'Tab Ahead. Popup', ->
 
                     # Add `\n` due to `new line at the end of the fixture.
                     (expect ($ 'ul').html() + '\n').toBe window.__html__['test/fixtures/suggestions2.html']
+                    done()
+            , 1
+
+    describe 'Typing some text into the input field (no favicon)', ->
+        queryTabsSpy = {}
+
+        beforeEach ->
+            window.localStorage[PREF_FAV] = FAV.NOFAV
+
+        beforeEach ->
+            queryTabsSpy = (spyOn window.chrome.tabs, 'query').and.callThrough()
+
+            $('#typeahead')
+                .val('jan')
+                .trigger('keyup')
+
+        it 'should ask chrome API `tabs.query', ->
+            (expect queryTabsSpy).toHaveBeenCalled()
+
+        it 'should query the current window by default', ->
+            (expect queryTabsSpy.calls.all()[0].args[0].currentWindow).toBe true
+
+        it 'should show suggestions with favicons', (done) ->
+            interval = setInterval ->
+                if ($ 'ul').length > 0
+                    clearInterval interval
+                    (expect $ 'ul').toHaveLength(1)
+
+                    # Add `\n` due to `new line at the end of the fixture.
+                    (expect ($ 'ul').html() + '\n').toBe window.__html__['test/fixtures/suggestions_nofav.html']
+                    done()
+            , 1
+
+    describe 'even with query input longer than 32 characters (no favicon)', ->
+        queryTabsSpy = {}
+
+        beforeEach ->
+            window.localStorage[PREF_FAV] = FAV.NOFAV
+
+        beforeEach ->
+            queryTabsSpy = (spyOn window.chrome.tabs, 'query').and.callThrough()
+            input = 'janjanjanjanjanjankarljanjanjanjanjanjanjanjanjanjanjanjankarljanjanjanjanjanjan'
+
+            $('#typeahead')
+                .val(input)
+                .trigger('keyup')
+
+        it 'should show suggestions', (done) ->
+            interval = setInterval ->
+                if ($ 'ul').length > 0
+                    clearInterval interval
+                    (expect $ 'ul').toHaveLength(1)
+
+                    # Add `\n` due to `new line at the end of the fixture.
+                    (expect ($ 'ul').html() + '\n').toBe window.__html__['test/fixtures/suggestions2_nofav.html']
                     done()
             , 1
 

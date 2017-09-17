@@ -5,46 +5,46 @@ body {
 }
 
 .navbar-search {
-    width: 500px;
     height: 35px;
+    width: 500px;
 }
 
 .fav .title {
-    width: 430px;
-    text-overflow: ellipsis;
+    margin-left: 28px;
     overflow: hidden;
-		margin-left: 28px;
+    text-overflow: ellipsis;
+    width: 430px;
 }
 
 .fav .url {
-    width: 430px;
-    text-overflow: ellipsis;
-    overflow: hidden;
     display: block;
-		margin-left: 28px
+    margin-left: 28px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 430px;
 }
 
 .nofav .title {
-    width: 458px;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
+    width: 458px;
 }
 
 .nofav .url {
-    width: 458px;
-    text-overflow: ellipsis;
-    overflow: hidden;
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 458px;
 }
 
 .favicon {
-	float: left;
+    float: left;
 }
 
 .favicon img {
-	height: 25px;
-	width: auto;
-	display: block;
+    display: block;
+    height: 25px;
+    width: auto;
 }
 
 .dropdown-menu {

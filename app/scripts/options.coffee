@@ -4,12 +4,13 @@ window.tabaheadOptions = (storage) ->
         ALL: 'all'
         CURRENT: 'current'
 
-    PREF_QUERY = 'pref/query'
-    PREF_FAV = 'pref/fav'
-
     FAV =
         FAV: 'fav'
         NOFAV: 'nofav'
+
+    PREF_QUERY = 'pref/query'
+    PREF_FAV = 'pref/fav'
+
     # Constants shared with `popup.coffee` <--
 
     CLASSES =
